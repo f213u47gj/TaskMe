@@ -29,10 +29,10 @@ namespace TaskMe.Repository
         public async Task<Request> GetRequsetById(int id)
         {
             return await _context.Requests
-                .Include(r => r.Status)    // Включает информацию о статусе запроса
-                .Include(r => r.Client)    // Включает информацию о клиенте запроса
-                .Include(r => r.Executor)  // Включает информацию о исполнителе запроса
-                .FirstOrDefaultAsync(s => s.RequestId == id); // Ищет запрос по идентификатору
+                .Include(r => r.Status)    
+                .Include(r => r.Client)   
+                .Include(r => r.Executor) 
+                .FirstOrDefaultAsync(s => s.RequestId == id); 
         }
 
         /// <summary>
@@ -42,11 +42,11 @@ namespace TaskMe.Repository
         public async Task<IEnumerable<Request>> GetRequests()
         {
             var requests = await _context.Requests
-                .Include(r => r.Status)    // Включает информацию о статусе запроса
-                .Include(r => r.Client)    // Включает информацию о клиенте запроса
-                .Include(r => r.Executor)  // Включает информацию о исполнителе запроса
-                .OrderByDescending(r => r.UpdateAt) // Сортирует запросы по дате обновления (по убыванию)
-                .ToListAsync(); // Извлекает список запросов
+                .Include(r => r.Status)   
+                .Include(r => r.Client)    
+                .Include(r => r.Executor) 
+                .OrderByDescending(r => r.UpdateAt)
+                .ToListAsync();
 
             return requests;
         }
@@ -58,8 +58,8 @@ namespace TaskMe.Repository
         /// <returns>Задача, которая завершится после добавления запроса в базу данных.</returns>
         public async Task AddRequest(Request request)
         {
-            await _context.Requests.AddAsync(request); // Добавляет запрос в контекст
-            await _context.SaveChangesAsync(); // Сохраняет изменения в базе данных
+            await _context.Requests.AddAsync(request);
+            await _context.SaveChangesAsync(); 
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace TaskMe.Repository
         /// <returns>Задача, которая завершится после удаления запроса из базы данных.</returns>
         public async Task RemoveRequest(Request request)
         {
-            _context.Requests.Remove(request); // Удаляет запрос из контекста
-            await _context.SaveChangesAsync(); // Сохраняет изменения в базе данных
+            _context.Requests.Remove(request);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace TaskMe.Repository
         /// <returns>Задача, которая завершится после обновления данных запроса в базе данных.</returns>
         public async Task UpdateRequest(Request request)
         {
-            _context.Requests.Update(request); // Обновляет запрос в контексте
-            await _context.SaveChangesAsync(); // Сохраняет изменения в базе данных
+            _context.Requests.Update(request);
+            await _context.SaveChangesAsync(); 
         }
     }
 }
