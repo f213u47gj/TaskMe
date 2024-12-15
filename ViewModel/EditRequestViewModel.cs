@@ -8,6 +8,9 @@ using Requests.Repository;
 
 namespace TaskMe.ViewModel
 {
+    /// <summary>
+    /// ViewModel для редактирования существующей заявки. Реализует логику загрузки, обновления и сохранения заявки.
+    /// </summary>
     public class EditRequestViewModel : EditBaseViewModel
     {
         private readonly RequestRepository _requestRepository;
@@ -16,6 +19,14 @@ namespace TaskMe.ViewModel
         private readonly ExecutorRepository _executorRepository;
         private readonly Request _request;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр EditRequestViewModel для редактирования существующей заявки.
+        /// </summary>
+        /// <param name="request">Заявка, которую необходимо отредактировать.</param>
+        /// <param name="requestRepository">Репозиторий для работы с заявками.</param>
+        /// <param name="clientRepository">Репозиторий для работы с клиентами.</param>
+        /// <param name="statusRepository">Репозиторий для работы со статусами.</param>
+        /// <param name="executorRepository">Репозиторий для работы с исполнителями.</param>
         public EditRequestViewModel(Request request, RequestRepository requestRepository, ClientRepository clientRepository, StatusRepository statusRepository, ExecutorRepository executorRepository)
         {
             _clientRepository = clientRepository;
@@ -28,7 +39,7 @@ namespace TaskMe.ViewModel
             if (request != null)
             {
                 _request = request;
-                RequestNumber = request.RequestNumber.ToString(); ;
+                RequestNumber = request.RequestNumber.ToString();
                 UpdateAt = DateTime.Now;
                 Equipment = request.Equipment;
                 Type = request.Type;
@@ -38,8 +49,15 @@ namespace TaskMe.ViewModel
             }
         }
 
+        /// <summary>
+        /// Команда для редактирования заявки.
+        /// </summary>
         public ICommand EditRequestCommand { get; }
 
+        /// <summary>
+        /// Обработчик редактирования заявки. Проверяет данные, обновляет заявку в базе данных.
+        /// </summary>
+        /// <param name="parameter">Параметр, обычно окно, которое нужно закрыть после успешного обновления заявки.</param>
         private async void EditRequest(object parameter)
         {
             if (parameter is Window window)
@@ -100,11 +118,14 @@ namespace TaskMe.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Клиент с такими инициалами не найден");
+                    MessageBox.Show("Номер заявки должен быть числовым значением");
                 }
             }
         }
 
+        /// <summary>
+        /// Загружает список всех статусов для заявки.
+        /// </summary>
         private async void LoadStatuses()
         {
             var statuses = await _statusRepository.GetStatuses();

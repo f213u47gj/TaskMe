@@ -7,24 +7,40 @@ using System.Windows.Input;
 
 namespace TaskMe.ViewModel
 {
+    /// <summary>
+    /// ViewModel для создания новой заявки. Реализует логику обработки данных заявки и взаимодействия с репозиториями.
+    /// </summary>
     public class CreateRequestViewModel : EditBaseViewModel
     {
-        private readonly RequestIRepository _requestRepository;
-        private readonly ClientIRepository _clientRepository;
-        private readonly StatusIRepository _statusRepository;
+        private readonly RequestIRepository _requestRepository; // Репозиторий для работы с заявками
+        private readonly ClientIRepository _clientRepository; // Репозиторий для работы с клиентами
+        private readonly StatusIRepository _statusRepository; // Репозиторий для работы со статусами
 
-        public CreateRequestViewModel(RequestIRepository requestRepository, ClientIRepository  clientRepository, StatusIRepository statusRepository)
+        /// <summary>
+        /// Инициализирует новый экземпляр CreateRequestViewModel.
+        /// </summary>
+        /// <param name="requestRepository">Репозиторий для работы с заявками.</param>
+        /// <param name="clientRepository">Репозиторий для работы с клиентами.</param>
+        /// <param name="statusRepository">Репозиторий для работы со статусами.</param>
+        public CreateRequestViewModel(RequestIRepository requestRepository, ClientIRepository clientRepository, StatusIRepository statusRepository)
         {
             _requestRepository = requestRepository;
             _clientRepository = clientRepository;
             _statusRepository = statusRepository;
-            LoadStatuses();
-            CreateRequestCommand = new RelayCommand(CreateRequest);
-            UpdateAt = DateTime.Now;
+            LoadStatuses(); // Загружает доступные статусы для заявки
+            CreateRequestCommand = new RelayCommand(CreateRequest); // Инициализирует команду для создания заявки
+            UpdateAt = DateTime.Now; // Устанавливает текущую дату и время как дату последнего обновления
         }
 
+        /// <summary>
+        /// Команда для создания новой заявки.
+        /// </summary>
         public ICommand CreateRequestCommand { get; }
 
+        /// <summary>
+        /// Обработчик создания новой заявки. Проверяет данные, создает заявку и сохраняет её в базе данных.
+        /// </summary>
+        /// <param name="parameter">Параметр, обычно окно, которое нужно закрыть после успешного добавления заявки.</param>
         private async void CreateRequest(object parameter)
         {
             if (parameter is Window window)
@@ -52,6 +68,7 @@ namespace TaskMe.ViewModel
                         Status = Status,
                         Client = client
                     };
+
                     await _requestRepository.AddRequest(request);
                     MessageBox.Show("Заявка добавлена");
                     window.Close();
@@ -63,6 +80,9 @@ namespace TaskMe.ViewModel
             }
         }
 
+        /// <summary>
+        /// Загружает список всех статусов для заявки.
+        /// </summary>
         private async void LoadStatuses()
         {
             var statuses = await _statusRepository.GetStatuses();

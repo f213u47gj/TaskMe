@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 
 namespace TaskMe.ViewModel.Base
 {
+    /// <summary>
+    /// Базовый класс для ViewModel, который представляет собой сущность, редактируемую в пользовательском интерфейсе.
+    /// </summary>
     public class EditBaseViewModel : BaseViewModel
     {
         private string _requestNumber;
@@ -16,6 +19,9 @@ namespace TaskMe.ViewModel.Base
         private Status _status;
         private ObservableCollection<Status> _statuses;
 
+        /// <summary>
+        /// Номер запроса.
+        /// </summary>
         public string RequestNumber
         {
             get => _requestNumber;
@@ -26,6 +32,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Дата и время создания запроса.
+        /// </summary>
         public DateTime CreateAt
         {
             get => _createAt;
@@ -36,6 +45,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Дата и время последнего обновления запроса.
+        /// </summary>
         public DateTime UpdateAt
         {
             get => _updateAt;
@@ -46,6 +58,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Оборудование, к которому относится запрос.
+        /// </summary>
         public string Equipment
         {
             get => _equipment;
@@ -56,6 +71,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Тип запроса.
+        /// </summary>
         public string Type
         {
             get => _type;
@@ -66,6 +84,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Описание запроса.
+        /// </summary>
         public string Description
         {
             get => _description;
@@ -76,6 +97,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Полное имя клиента, сделавшего запрос.
+        /// </summary>
         public string ClientFullName
         {
             get => _clientFullName;
@@ -86,6 +110,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Полное имя исполнителя, ответственного за запрос.
+        /// </summary>
         public string ExecutorFullName
         {
             get => _executorFullName;
@@ -96,6 +123,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Статус запроса.
+        /// </summary>
         public Status Status
         {
             get => _status;
@@ -106,6 +136,9 @@ namespace TaskMe.ViewModel.Base
             }
         }
 
+        /// <summary>
+        /// Коллекция всех возможных статусов для запроса.
+        /// </summary>
         public ObservableCollection<Status> Statuses
         {
             get => _statuses;
